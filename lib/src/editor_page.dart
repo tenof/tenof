@@ -4,10 +4,15 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:quill_delta/quill_delta.dart';
 import 'package:zefyr/zefyr.dart';
+import '../generated/l10n.dart';
+// 组件
+import '../components/drawer_widget.dart';
 
 class EditorPage extends StatefulWidget {
+  const EditorPage({Key? key}) : super(key: key);
+
   @override
-  EditorPageState createState() => EditorPageState();
+  State<StatefulWidget> createState() => EditorPageState();
 }
 
 class EditorPageState extends State<EditorPage> {
@@ -40,7 +45,13 @@ class EditorPageState extends State<EditorPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Editor page'),
+        title: Text(S.of(context).title),
+        leading: Builder(
+            builder: (BuildContext context) => IconButton(
+                  icon: const Icon(Icons.menu),
+                  tooltip: "Navigration",
+                  onPressed: () => Scaffold.of(context).openDrawer(),
+                )),
         actions: <Widget>[
           Builder(
             builder: (context) => IconButton(
@@ -50,6 +61,7 @@ class EditorPageState extends State<EditorPage> {
           )
         ],
       ),
+      drawer: const DrawerWidget(),
       body: body,
     );
   }

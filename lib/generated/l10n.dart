@@ -59,6 +59,16 @@ class S {
       args: [],
     );
   }
+
+  /// `文章标题`
+  String get title {
+    return Intl.message(
+      '文章标题',
+      name: 'title',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
