@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+// intl
+import 'generated/l10n.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,11 +15,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       localizationsDelegates: const [
+        S.delegate,
         GlobalMaterialLocalizations.delegate, // 指定本地化的字符串和一些其他的值
         GlobalCupertinoLocalizations.delegate, // 对应的Cupertino风格
         GlobalWidgetsLocalizations.delegate // 指定默认的文本排列方向, 由左到右或由右到左
       ],
-      supportedLocales: const [Locale("en"), Locale("zh")],
+      supportedLocales: S.delegate.supportedLocales,
       title: 'Tenof',
       theme: ThemeData(
         // This is the theme of your application.
@@ -53,10 +56,14 @@ class MyHomePage extends StatelessWidget {
         // the App.build method, and use it to set our appbar title.
         title: const Text("Tenof"),
       ),
-      body: const Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Text("content, 就这？"),
+      body: Column(
+        children: [
+          Center(
+            // Center is a layout widget. It takes a single child and positions it
+            // in the middle of the parent.
+            child: Text(S.of(context).helloWorld),
+          ),
+        ],
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
