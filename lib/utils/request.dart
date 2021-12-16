@@ -1,13 +1,17 @@
-import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'dart:convert';
 import 'dart:async';
 
-Future request(url, {data}) async {
+Future request(String url, {data, Options? options, bool json = true}) async {
   try {
     Response response;
-    Dio dio = Dio()
-    response = await dio.request(url, data: data);
+    Dio dio = Dio();
+    if (!json) {
+      dio.options.contentType = Headers.formUrlEncodedContentType;
+    }
+    response = await dio.request(url, data: data, options: options);
+    return response;
   } catch (err) {
-    print('错误信息');
-  } finally {}
+    throw "tenof: ${err.toString()}";
+  }
 }
