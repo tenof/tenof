@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:bot_toast/bot_toast.dart';
+import 'dart:async';
 // intl
 import 'generated/l10n.dart';
+
+import 'utils/toast.dart';
 
 void main() {
   runApp(const MyApp());
@@ -64,23 +67,28 @@ class MyHomePage extends StatelessWidget {
             // Center is a layout widget. It takes a single child and positions it
             // in the middle of the parent.
             child: TextButton(
-              child: Text(S.of(context).helloWorld),
-              onPressed: () => BotToast.showNotification(
-                title: (_) => const Text('Notification title'),
-                subtitle: (_) => const Text("Notification subtitle"),
-                trailing: (cancel) => IconButton(
-                  icon: const Icon(Icons.cancel),
-                  onPressed: cancel,
-                ),
-                leading: (cancel) => SizedBox.fromSize(
-                    size: const Size(40, 40),
-                    child: IconButton(
-                      icon: const Icon(Icons.favorite, color: Colors.redAccent),
-                      onPressed: cancel,
-                    )),
-              ),
-            ),
+                child: Text(S.of(context).helloWorld),
+                onPressed: () {
+                  // notification.warning(title: const Text('测试提示信息问题')),
+                  Toast.loading();
+
+                  const timeout = Duration(seconds: 5);
+                  Timer.periodic(timeout, (timer) {
+                    //callback function
+                    //1s 回调一次
+                    print('afterTimer=' + DateTime.now().toString());
+                    Toast.hide();
+
+                    timer.cancel(); // 取消定时器
+                  });
+                }),
           ),
+          Center(
+            child: TextButton(
+              child: const Text("取消loading"),
+              onPressed: () => Toast.hide(),
+            ),
+          )
         ],
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
