@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:bot_toast/bot_toast.dart';
+import 'dart:async';
 // intl
 import 'generated/l10n.dart';
 // src
 import 'src/editor_page.dart';
+
+import 'utils/toast.dart';
 
 void main() {
   runApp(const MyApp());
@@ -36,10 +40,10 @@ class MyApp extends StatelessWidget {
           // is not restarted.
           primarySwatch: Colors.blue,
         ),
-        home: EditorPage(),
-        routes: {
-          "/editor": (context) => EditorPage(),
-        });
+        home: const EditorPage(),
+        routes: {"/editor": (context) => const EditorPage()},
+        builder: BotToastInit(),
+        navigatorObservers: [BotToastNavigatorObserver()]);
   }
 }
 
@@ -66,11 +70,29 @@ class MyHomePage extends StatelessWidget {
           Center(
             // Center is a layout widget. It takes a single child and positions it
             // in the middle of the parent.
-            child: FlatButton(
-              child: Text(S.of(context).helloWorld),
-              onPressed: () => navigator.pushNamed("/editor"),
-            ),
+            child: TextButton(
+                child: Text(S.of(context).helloWorld),
+                onPressed: () {
+                  // notification.warning(title: const Text('测试提示信息问题')),
+                  Toast.loading();
+
+                  const timeout = Duration(seconds: 5);
+                  Timer.periodic(timeout, (timer) {
+                    //callback function
+                    //1s 回调一次
+                    print('afterTimer=' + DateTime.now().toString());
+                    Toast.hide();
+
+                    timer.cancel(); // 取消定时器
+                  });
+                }),
           ),
+          Center(
+            child: TextButton(
+              child: const Text("取消loading"),
+              onPressed: () => Toast.hide(),
+            ),
+          )
         ],
       ),
     );

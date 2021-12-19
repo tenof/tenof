@@ -34,6 +34,12 @@ dependencies:
     sdk: flutter
   intl: ^0.17.0
   zefyr: ^1.0.0-dev.1.0
+  dio: ^4.0.5-beta1
+  # bot toast
+  # https://github.com/MMMzq/bot_toast/blob/master/API.md
+  # https://github.com/MMMzq/bot_toast/blob/master/README_zh.md
+
+  bot_toast: ^4.0.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
