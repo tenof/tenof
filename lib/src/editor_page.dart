@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:quill_delta/quill_delta.dart';
+import 'package:tenof/utils/toast.dart';
 import 'package:zefyr/zefyr.dart';
 import '../generated/l10n.dart';
 // 组件
@@ -135,13 +136,16 @@ class EditorPageState extends State<EditorPage> {
   void _saveDocument(BuildContext context) {
     // Notus documents can be easily serialized to JSON by passing to
     // `jsonEncode` directly:
-    final contents = jsonEncode(_controller.document);
+    final contents = jsonEncode([
+      {"name": 12121}
+    ]);
+    print(contents is List);
     // For this example we save our document to a temporary file.
     final file = File(Directory.systemTemp.path + '/quick_start.json');
+    print(file);
     // And show a snack bar on success.
     file.writeAsString(contents).then((_) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Saved.')));
+      notification.success(title: const Text('保存成功'));
     });
   }
 }

@@ -9,6 +9,7 @@ Future request(String url, {data, Options? options, bool json = true}) async {
     if (!json) {
       dio.options.contentType = Headers.formUrlEncodedContentType;
     }
+    dio.interceptors.add(LogInterceptor(responseBody: false)); //Open log
     response = await dio.request(url, data: data, options: options);
     return response;
   } catch (err) {
