@@ -7,6 +7,7 @@ import 'package:zefyr/zefyr.dart';
 import '../generated/l10n.dart';
 // 组件
 import '../components/drawer_widget.dart';
+import '../utils/db.dart';
 
 class EditorPage extends StatefulWidget {
   const EditorPage({Key? key}) : super(key: key);
@@ -136,12 +137,13 @@ class EditorPageState extends State<EditorPage> {
     // Notus documents can be easily serialized to JSON by passing to
     // `jsonEncode` directly:
     final contents = jsonEncode(_controller.document);
+    DB().get();
     // For this example we save our document to a temporary file.
-    final file = File(Directory.systemTemp.path + '/quick_start.json');
-    // And show a snack bar on success.
-    file.writeAsString(contents).then((_) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Saved.')));
-    });
+    // final file = File(Directory.systemTemp.path + '/quick_start.json');
+    // // And show a snack bar on success.
+    // file.writeAsString(contents).then((_) {
+    //   ScaffoldMessenger.of(context)
+    //       .showSnackBar(const SnackBar(content: Text('Saved.')));
+    // });
   }
 }
