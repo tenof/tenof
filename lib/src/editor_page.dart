@@ -133,11 +133,13 @@ class EditorPageState extends State<EditorPage> {
     return NotusDocument.fromDelta(delta);
   }
 
-  void _saveDocument(BuildContext context) {
+  void _saveDocument(BuildContext context) async {
     // Notus documents can be easily serialized to JSON by passing to
     // `jsonEncode` directly:
-    final contents = jsonEncode(_controller.document);
-    DB().get();
+    final contents = _controller.document;
+    // DB().setList(contents);
+    final data = await DB().getList();
+    print(data);
     // For this example we save our document to a temporary file.
     // final file = File(Directory.systemTemp.path + '/quick_start.json');
     // // And show a snack bar on success.
