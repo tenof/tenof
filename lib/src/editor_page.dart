@@ -138,7 +138,7 @@ class EditorPageState extends State<EditorPage> {
     // `jsonEncode` directly:
     final contents = _controller.document;
     // DB().setList(contents);
-    final data = await DB().getList();
+    final data = await DB().getList('insert', 'Zefyr Quick Start\nA');
     print(data);
     // For this example we save our document to a temporary file.
     // final file = File(Directory.systemTemp.path + '/quick_start.json');
