@@ -15,16 +15,18 @@ class DB {
     }
   }
 
-  Future getList() async {
+  Future getList(String key, value) async {
     // 目录信息保存
     final jsonData = await get('list');
     if (jsonData != null) {
-      for (var i = 0; i < jsonData.length; i++) {
-        // jsonData[i].title
-        // TODO: title 标题  time 时间 child 下级
-        print(jsonData[i]);
-      }
+      final data = jsonData.where((vals) {
+        return vals[key] == value;
+      }).toList();
+
+      return data;
     }
+
+    return [];
   }
 
   Future<File> set(contents) async {
@@ -35,6 +37,7 @@ class DB {
   }
 
   void setList(contents) {
+    // 保存目录
     final data = jsonEncode({"list": contents});
     set(data);
   }
