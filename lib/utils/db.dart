@@ -31,14 +31,16 @@ class DB {
 
   Future<File> set(contents) async {
     print('添加位置:$file');
-    return await file.writeAsString(contents).then((_) {
+    return await file.writeAsString(jsonEncode(contents)).then((_) {
       return _;
     });
   }
 
-  void setList(contents) {
-    // 保存目录
-    final data = jsonEncode({"list": contents});
-    set(data);
+  void setList(contents) async {
+    // 查看 目录所有的值
+    final List? data = await get('list');
+    set({
+      "list": [...?data, contents]
+    });
   }
 }

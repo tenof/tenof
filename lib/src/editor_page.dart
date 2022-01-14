@@ -137,9 +137,9 @@ class EditorPageState extends State<EditorPage> {
     // Notus documents can be easily serialized to JSON by passing to
     // `jsonEncode` directly:
     final contents = _controller.document;
-    // DB().setList(contents);
-    final data = await DB().getList('insert', 'Zefyr Quick Start\nA');
-    print(data);
+    DB().setList({"content": contents});
+    // final data = await DB().getList('insert', 'Zefyr Quick Start\nA');
+    // print(data);
     // For this example we save our document to a temporary file.
     // final file = File(Directory.systemTemp.path + '/quick_start.json');
     // // And show a snack bar on success.
